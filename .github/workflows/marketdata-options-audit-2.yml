@@ -30,4 +30,4 @@ jobs:
         env:
           MARKETDATA_TOKEN: ${{ secrets.MARKETDATA_TOKEN }}
           AUDIT_SYMBOL: ${{ inputs.symbol }}
-        run: python marketdata_options_audit.py
+        run: python marketdata_options_audit_v2.py
