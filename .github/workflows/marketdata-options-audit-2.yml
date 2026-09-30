@@ -1,0 +1,33 @@
+name: MarketData.app Options Audit 2
+
+on:
+  workflow_dispatch:
+    inputs:
+      symbol:
+        description: "Underlying to test"
+        required: false
+        default: "AAPL"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependency
+        run: python -m pip install --disable-pip-version-check requests
+
+      - name: Run MarketData.app options audit
+        env:
+          MARKETDATA_TOKEN: ${{ secrets.MARKETDATA_TOKEN }}
+          AUDIT_SYMBOL: ${{ inputs.symbol }}
+        run: python marketdata_options_audit.py
